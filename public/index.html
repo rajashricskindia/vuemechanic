@@ -1,17 +1,40 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Mechanic Company</title>
+    <!-- You can include additional CSS files or fonts here -->
+    <style>
+      .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+      }
+      .logo {
+        max-width: 100%;
+        height: auto;
+      }
+      @media (min-width: 768px) {
+        .header {
+          justify-content: center; /* Center the logo on larger screens as well */
+        }
+        .logo {
+          max-width: 150px;
+        }
+      }
+    </style>
+    <!-- Header with Logo -->
+    <header class="header">
+      <div class="container d-flex align-items-center">
+        <img src="/assets/logo.png" alt="Mechanic Company Logo" class="logo" />
+      </div>
+    </header>
   </head>
   <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <!-- The bundled JavaScript will be injected here -->
   </body>
 </html>
