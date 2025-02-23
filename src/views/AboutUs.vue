@@ -1,4 +1,3 @@
-<!-- filepath: /Users/sandipkurwale/Documents/VueMechanic/mechaniccompany/src/views/AboutUs.vue -->
 <template>
   <div class="about-container">
     <router-link to="/" class="back-icon">
@@ -10,45 +9,55 @@
     </div>
     <div class="content-container">
       <p class="intro-text">
-        Welcome to <strong>Mechanic Company</strong>, where we solve your problems with
-        <span class="text-primary">honesty, trust, and reliability</span>. Our commitment is to provide the best services,
-        ensuring customer satisfaction and long-term relationships.
+        Welcome to <strong>Mechanic Company</strong>, where we solve your challenges with
+        <span class="text-primary">honesty, trust, and reliability</span>. We are dedicated to providing top-notch services, ensuring your complete satisfaction and fostering lasting relationships.
       </p>
       <h3 class="fancy-heading">Why Choose Us?</h3>
-      <ul class="fancy-list">
-        <li>
-          <i class="fas fa-check-circle"></i>
-          <strong>Honesty:</strong> Transparent service with no hidden costs.
-        </li>
-        <li>
-          <i class="fas fa-check-circle"></i>
-          <strong>Trust:</strong> Customers rely on our expertise.
-        </li>
-        <li>
-          <i class="fas fa-check-circle"></i>
-          <strong>Reliability:</strong> We ensure quality work, every time.
-        </li>
-      </ul>
+      <div class="fancy-list-container">
+        <ul class="fancy-list">
+          <li>
+            <i class="fas fa-check-circle"></i>
+            <div>
+              <strong>Honesty:</strong> Transparent service with no hidden costs.
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i>
+            <div>
+              <strong>Trust:</strong> Our expertise is the foundation of our client relationships.
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i>
+            <div>
+              <strong>Reliability:</strong> Consistent quality work, every time.
+            </div>
+          </li>
+        </ul>
+      </div>
       <h3 class="fancy-heading">Our Commitment</h3>
       <p class="commitment-text">
-        Our team is passionate about delivering solutions that make a difference. Whether it’s a minor fix or a major project,
-        we handle it with professionalism and care. We value your trust and strive to exceed expectations.
+        Our team is passionate about delivering innovative solutions that make a real difference. From minor fixes to major projects, we handle every task with professionalism and care. Your trust inspires us to continually exceed expectations.
       </p>
       <div class="contact-section">
         <h3>Contact Us</h3>
-        <p>
+        <p class="contact-details">
           <i class="fas fa-map-marker-alt"></i>
-          Visit us at <strong>139, Mumbai Agra Road, Jaulke Phata, Near Ozar Nashik 422207</strong><br>
+          Visit us at <strong>139, Mumbai Agra Road, Jaulke Phata, Near Ozar Nashik 422207</strong>
+        </p>
+        <p class="contact-details">
           <a href="tel:+918411971971" class="phone-link">
             <i class="fas fa-phone-alt"></i>
-            Call us: <strong>+91 8411971971</strong><br>
+            +91 8411971971
           </a>
+        </p>
+        <p class="contact-details">
           <a href="https://wa.me/918411971971?text=Hi" target="_blank" class="whatsapp-link">
-            <i class="fab fa-whatsapp" style="color: green;"></i>
+            <i class="fab fa-whatsapp"></i>
             Chat with us on WhatsApp
           </a>
         </p>
-        <p>
+        <p class="contact-details">
           <i class="fas fa-envelope"></i>
           Email: <strong>info@cskindia.com</strong>
         </p>
@@ -64,78 +73,90 @@ export default {
 </script>
 
 <style scoped>
+/* Container styling with subtle gradient and shadow */
 .about-container {
   animation: fadeIn 1s ease-in-out;
-  background: linear-gradient(135deg, #ffffff, #f2f2f2);
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #ffffff, #f9f9f9);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
   margin: 2rem auto;
   max-width: 1100px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Back link styling */
 .back-icon {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: #333;
+  color: #c0392b;
   font-size: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   transition: color 0.3s ease;
 }
 
 .back-icon:hover {
-  color: #007bff;
+  color: #2980b9;
 }
 
+/* Section title styling */
 .section-title {
   text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
-  color: #333;
+  margin-bottom: 1.8rem;
+  font-size: 2.2rem;
+  color: #2c3e50;
+  font-weight: 600;
 }
 
+/* Logo container and image styling */
 .logo-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .aboutus-logo {
   max-width: 200px;
   width: 100%;
-  border-radius: 10%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12%;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
 
 .aboutus-logo:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
+/* Content container styling */
 .content-container {
   text-align: center;
+  padding: 0 1rem;
 }
 
 .intro-text,
 .commitment-text {
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: 1.15rem;
+  line-height: 1.7;
   color: #555;
+  margin-bottom: 1.5rem;
 }
 
+/* Highlight primary text */
 .text-primary {
-  color: #007bff;
+  color: #2980b9;
+  font-weight: 500;
 }
 
+/* Fancy headings with underline */
 .fancy-heading {
   position: relative;
   display: inline-block;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  margin: 2rem 0 1.2rem;
   padding-bottom: 0.3rem;
-  font-size: 1.5rem;
-  color: #333;
+  font-size: 1.8rem;
+  color: #2c3e50;
+  font-weight: 500;
 }
 
 .fancy-heading::after {
@@ -145,57 +166,83 @@ export default {
   bottom: 0;
   width: 50%;
   height: 3px;
-  background-color: #007bff;
+  background-color: #2980b9;
   transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* Fancy list styling */
+.fancy-list-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .fancy-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 1.5rem 0;
+  margin: 0;
 }
 
 .fancy-list li {
   display: flex;
   align-items: center;
   margin-bottom: 0.75rem;
-  font-size: 1.1rem;
-  color: #333;
+  font-size: 1.15rem;
+  color: #2c3e50;
 }
 
 .fancy-list li i {
-  color: #007bff;
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
+  color: #2980b9;
+  margin-right: 0.6rem;
+  font-size: 1.5rem;
 }
 
+.fancy-list li div {
+  text-align: left;
+}
+
+/* Contact section styling */
 .contact-section {
-  background-color: #f9f9f9;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 1.5rem;
+  background-color: #fdfdfd;
+  padding: 1.8rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  margin-top: 2rem;
 }
 
 .contact-section h3 {
   margin-bottom: 1rem;
-  font-size: 1.5rem;
-  color: #333;
+  font-size: 1.8rem;
+  color: #2c3e50;
 }
 
-.contact-section p {
-  font-size: 1.1rem;
-  line-height: 1.6;
+.contact-details {
+  font-size: 1.15rem;
+  line-height: 1.7;
   color: #555;
-  margin: 0;
+  margin: 0.5rem 0;
 }
 
-.contact-section i {
-  color: #007bff;
+.contact-details i {
+  color: #2980b9;
   margin-right: 0.5rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
+.phone-link,
+.whatsapp-link {
+  text-decoration: none;
+  color: #2980b9;
+  transition: color 0.3s ease;
+}
+
+.phone-link:hover,
+.whatsapp-link:hover {
+  color: #1c5980;
+}
+
+/* FadeIn animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -209,16 +256,26 @@ export default {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .about-container {
-    padding: 1.5rem;
+  .fancy-list-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-  .section-title {
-    font-size: 1.75rem;
+  .fancy-list {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
   }
-  .intro-text,
-  .commitment-text,
-  .contact-section p {
-    font-size: 1rem;
+  .fancy-list li {
+    flex-direction: row; /* keep icon and text on the same line */
+    align-items: center;
+    justify-content: flex-start;
   }
+  .fancy-list li i {
+    margin-bottom: 0; /* remove extra bottom margin if any */
+    margin-right: 0.5rem;
+  }
+
+
 }
 </style>

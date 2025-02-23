@@ -1,16 +1,17 @@
-<!-- filepath: /Users/sandipkurwale/Documents/VueMechanic/mechaniccompany/src/views/Implements.vue -->
 <template>
   <div class="service">
     <router-link to="/" class="back-icon">
       <i class="fas fa-arrow-left"></i> Back to Home
     </router-link>
-    <h1>Attachments (Implements)</h1>
-    <h3>We offer a wide range of Quality & Robust implements designed to boost the efficiency and productivity of your tractor with superior cultivation .</h3>
+    <h1 class="section-title">Attachments (Implements)</h1>
+    <h3 class="sub-title">
+      We offer a wide range of quality &amp; robust implements designed to boost the efficiency and productivity of your tractor for superior cultivation.
+    </h3>
     <div class="products">
       <div v-for="product in products" :key="product.id" class="product-card">
         <img :src="product.productImage" :alt="product.name" class="product-image" />
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-description">{{ product.description }}</p>
         <p class="price">Price Range: {{ product.price }}</p>
       </div>
     </div>
@@ -45,67 +46,108 @@ export default {
 </script>
 
 <style scoped>
+/* Main container with a subtle gradient background */
 .service {
   text-align: center;
-  padding: 2rem;
-  background-color: #f9f9f9;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #ffffff, #f7f7f7);
+  min-height: 100vh;
 }
 
+/* Back icon styling with hover effects */
 .back-icon {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: #333;
-  margin-bottom: 1rem;
+  color: #c0392b;
   font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
 }
 
 .back-icon i {
   margin-right: 0.5rem;
 }
 
+.back-icon:hover {
+  color: #2980b9;
+}
+
+/* Section title and subtitle styling */
+.section-title {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.sub-title {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Products grid */
 .products {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
-  margin-top: 2rem;
 }
 
+/* Product card styling */
 .product-card {
-  background-color: #fff;
-  border: 1px solid red;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border: 2px solid #2980b9;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   width: 300px;
   text-align: left;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-card:hover {
   transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
+/* Product image styling */
 .product-image {
   width: 100%;
-  height: 350px; /* Reduced height */
+  height: 350px;
   object-fit: cover;
 }
 
-.product-card h3 {
+/* Product name, description, and price */
+.product-name {
   font-size: 1.5rem;
   margin: 1rem;
-  color: #333;
+  color: #2c3e50;
 }
 
-.product-card p {
+.product-description {
   margin: 0 1rem 1rem;
-  color: #666;
+  color: #7f8c8d;
+  font-size: 1rem;
 }
 
 .price {
   font-weight: bold;
   color: #e91e63;
+  margin: 0 1rem 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .products {
+    flex-direction: column;
+    align-items: center;
+  }
+  .product-card {
+    width: 90%;
+  }
 }
 </style>

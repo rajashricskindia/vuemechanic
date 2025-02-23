@@ -1,30 +1,35 @@
-<!-- filepath: /Users/sandipkurwale/Documents/VueMechanic/mechaniccompany/src/App.vue -->
 <template>
   <div id="app">
     <header>
-      <h1>We Are Mechanic Company</h1>
-      <!-- <nav>
+      <div class="header-container">
+        <!-- <h1 class="logo">We Are Mechanic Company</h1> -->
         <div class="menu-icon" @click="toggleMenu">
           <div class="bar"></div>
           <div class="bar"></div>
           <div class="bar"></div>
         </div>
-        <ul :class="{ 'nav-active': isMenuActive }">
-          <li><router-link to="/" @click="toggleMenu">Home</router-link></li>
-          <li><router-link to="/Implements" @click="toggleMenu">Implements</router-link></li>
-          <li><router-link to="/Spares" @click="toggleMenu">Spares</router-link></li>
-          <li><router-link to="/UsedTractors" @click="toggleMenu">Used Tractors</router-link></li>
-          <li><router-link to="/MechanicSupport" @click="toggleMenu">Mechanic Support</router-link></li>
-        </ul>
-      </nav> -->
+        <nav>
+          <ul :class="{ 'nav-active': isMenuActive }">
+            <li><router-link to="/" @click="toggleMenu">Home</router-link></li>
+            <li><router-link to="/implements" @click="toggleMenu">Implements</router-link></li>
+            <li><router-link to="/spares" @click="toggleMenu">Spares</router-link></li>
+            <li><router-link to="/usedtractors" @click="toggleMenu">Used Tractors</router-link></li>
+            <li><router-link to="/mechanicsupport" @click="toggleMenu">Mechanic Support</router-link></li>
+            <li><router-link to="/aboutus" @click="toggleMenu">About Us</router-link></li>
+            <li><router-link to="/contactus" @click="toggleMenu">Contact Us</router-link></li>
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
       <router-view></router-view>
     </main>
     <footer>
       <div class="footer-content">
-        <router-link to="/AboutUs" class="footer-link">About Us</router-link>
-        <router-link to="/ContactUs" class="footer-link">Contact Us</router-link>
+        <div class="footer-links">
+          <router-link to="/aboutus" class="footer-link">About Us</router-link>
+          <router-link to="/contactus" class="footer-link">Contact Us</router-link>
+        </div>
         <div class="social-icons">
           <a href="https://www.facebook.com" target="_blank" class="social-icon">
             <i class="fab fa-facebook-f"></i>
@@ -37,7 +42,9 @@
           </a>
         </div>
       </div>
-      <p>&copy; 2025 PlancetCSK India Pvt. Ltd. All rights reserved.</p>
+      <p class="copyright">
+        &copy; 2025 PlancetCSK India Pvt. Ltd. All rights reserved.
+      </p>
     </footer>
   </div>
 </template>
@@ -59,65 +66,40 @@ export default {
 </script>
 
 <style scoped>
-/* Container layout */
+/* Overall container layout */
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* Header styling */
+/* Header styling with gradient background */
 header {
-  background-color: #333;
+  background: linear-gradient(135deg, #34495e, #2c3e50);
   color: #fff;
-  padding: 1rem;
-  text-align: center;
+  padding: 1rem 2rem;
   position: relative;
 }
 
-header h1 {
-  margin: 0;
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.logo {
   font-size: 2rem;
   font-weight: bold;
+  margin: 0;
 }
 
 /* Navigation styling */
-nav {
-  position: relative;
-}
-
-.menu-icon {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-
-.menu-icon .bar {
-  width: 25px;
-  height: 3px;
-  background-color: #fff;
-  margin: 4px 0;
-  transition: 0.4s;
-}
-
 nav ul {
   list-style: none;
-  padding: 0;
-  margin: 1rem 0 0 0;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   gap: 1.5rem;
-}
-
-nav ul.nav-active {
-  display: block;
-}
-
-nav ul li {
+  padding: 0;
   margin: 0;
 }
 
@@ -127,39 +109,93 @@ nav ul li a {
   font-size: 1.1rem;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background 0.3s ease;
 }
 
 nav ul li a:hover {
-  background-color: #555;
-  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile menu icon */
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-icon .bar {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 4px 0;
+  transition: all 0.4s;
+}
+
+/* Responsive navigation adjustments */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: flex;
+  }
+  
+  nav {
+    width: 100%;
+  }
+  
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    background: #2c3e50;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem 0;
+  }
+  
+  nav ul.nav-active {
+    display: flex;
+  }
+  
+  nav ul li {
+    width: 100%;
+    text-align: center;
+    margin: 0.5rem 0;
+  }
 }
 
 /* Main content styling */
 main {
   flex: 1;
-  padding: 1rem;
+  padding: 2rem;
+  background: #ecf0f1;
 }
 
 /* Footer styling */
 footer {
-  background-color: #333;
+  background: #2c3e50;
   color: #fff;
+  padding: 1.5rem 2rem;
   text-align: center;
-  padding: 1rem;
 }
 
 .footer-content {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
 }
 
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
 .footer-link {
   color: #fff;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  transition: text-decoration 0.3s;
 }
 
 .footer-link:hover {
@@ -174,40 +210,20 @@ footer {
 .social-icon {
   color: #fff;
   font-size: 1.5rem;
-  text-decoration: none;
+  transition: color 0.3s;
 }
 
 .social-icon:hover {
   color: #e91e63;
 }
 
-/* Responsive adjustments */
+footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive footer adjustments */
 @media (max-width: 768px) {
-  .menu-icon {
-    display: flex;
-  }
-
-  nav ul {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    background-color: #333;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    padding: 1rem 0;
-  }
-
-  nav ul.nav-active {
-    display: flex;
-  }
-
-  nav ul li a {
-    font-size: 1rem;
-    padding: 0.5rem;
-  }
-
   .footer-content {
     flex-direction: column;
     gap: 1rem;
