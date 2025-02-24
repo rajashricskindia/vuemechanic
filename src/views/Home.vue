@@ -2,7 +2,7 @@
   <div class="home">
     <div class="premium-heading">
       <i class="fas fa-crown"></i>
-      <h6>Our Premium Services</h6>
+      <h2>Our Premium Services</h2>
       <i class="fas fa-crown"></i>
     </div>
     <p class="tagline">
