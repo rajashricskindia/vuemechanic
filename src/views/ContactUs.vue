@@ -50,19 +50,21 @@ export default {
   max-width: 1100px;
 }
 
+/* Back link styling */
 .back-icon {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: #333;
+  color: #c0392b;
   font-size: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   transition: color 0.3s ease;
 }
 
 .back-icon:hover {
-  color: #007bff;
+  color: #2980b9;
 }
+
 
 .section-title {
   text-align: center;

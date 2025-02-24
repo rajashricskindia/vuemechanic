@@ -8,12 +8,17 @@
       We offer a wide range of quality &amp; robust implements designed to boost the efficiency and productivity of your tractor for superior cultivation.
     </h3>
     <div class="products">
-      <div v-for="product in products" :key="product.id" class="product-card">
+      <router-link
+        v-for="product in products"
+        :key="product.id"
+        :to="{ name: 'ImplementDetails', params: { productId: product.id } }"
+        class="product-card"
+      >
         <img :src="product.productImage" :alt="product.name" class="product-image" />
         <h3 class="product-name">{{ product.name }}</h3>
         <p class="product-description">{{ product.description }}</p>
         <p class="price">Price Range: {{ product.price }}</p>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -98,6 +103,7 @@ export default {
 }
 
 /* Product card styling */
+/* Note: The .product-card styles now apply to the router-link container */
 .product-card {
   background-color: #ffffff;
   border: 2px solid #2980b9;
@@ -105,8 +111,12 @@ export default {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   width: 300px;
-  text-align: left;
+  text-decoration: none;
+  color: #2c3e50;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .product-card:hover {

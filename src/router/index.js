@@ -7,6 +7,7 @@ import Implements from '../views/Implements.vue'
 import Spares from '../views/Spares.vue'
 import UsedTractors from '../views/UsedTractors.vue'
 import MechanicSupport from '../views/MechanicSupport.vue'
+import ImplementDetails from '../views/ImplementDetails.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -15,7 +16,8 @@ const routes = [
   { path: '/Implements', name: 'Implements', component: Implements },
   { path: '/Spares', name: 'Spares', component: Spares },
   { path: '/UsedTractors', name: 'UsedTractors', component: UsedTractors },
-  { path: '/MechanicSupport', name: 'MechanicSupport', component: MechanicSupport }
+  { path: '/MechanicSupport', name: 'MechanicSupport', component: MechanicSupport },
+  { path: '/ImplementDetails/:productId', name: 'ImplementDetails', component: ImplementDetails }
 ]
 
 const router = createRouter({

@@ -64,6 +64,8 @@ export default {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  /* Prevent wrapping on all screen sizes */
+  flex-wrap: nowrap;
 }
 
 .premium-heading i {
@@ -146,6 +148,12 @@ export default {
   .services-overview {
     flex-direction: column;
     align-items: center;
+  }
+  
+  /* Optionally reduce font size and gap on smaller screens */
+  .premium-heading {
+    gap: 0.5rem;
+    font-size: 2rem;
   }
 }
 </style>

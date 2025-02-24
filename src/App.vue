@@ -17,6 +17,7 @@
             <li><router-link to="/mechanicsupport" @click="toggleMenu">Mechanic Support</router-link></li>
             <li><router-link to="/aboutus" @click="toggleMenu">About Us</router-link></li>
             <li><router-link to="/contactus" @click="toggleMenu">Contact Us</router-link></li>
+            <li><router-link to="/mechanicsupport" @click="toggleMenu">Other Services</router-link></li>
           </ul>
         </nav>
       </div>
@@ -43,7 +44,7 @@
         </div>
       </div>
       <p class="copyright">
-        &copy; 2025 PlancetCSK India Pvt. Ltd. All rights reserved.
+        &copy; 2025 PlanetCSK India Pvt. Ltd. All rights reserved.
       </p>
     </footer>
   </div>
@@ -106,7 +107,7 @@ nav ul {
 nav ul li a {
   color: #fff;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   transition: background 0.3s ease;
