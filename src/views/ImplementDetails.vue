@@ -131,7 +131,7 @@ export default {
 
 <style scoped>
 .detail-container {
-  padding: 0.5rem;
+  padding: 2.5rem;
   background: linear-gradient(135deg, #ffffff, #f7f7f7);
   min-height: 100vh;
   max-width: 1300px;
@@ -171,18 +171,23 @@ export default {
   text-align: center;
 }
 
-.variant-label {
-  font-size: 1.1rem;
-  color: #2c3e50;
-  margin-right: 0.5rem;
-}
-
+/* Updated dropdown styles */
 .variant-dropdown {
   font-size: 1.1rem;
   padding: 0.4rem 0.6rem;
   border: 1px solid #2980b9;
   border-radius: 4px;
   outline: none;
+  /* Make the dropdown responsive */
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.variant-label {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  margin-right: 0.5rem;
 }
 
 .product-title {
@@ -198,11 +203,11 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .product-image {
-  max-width:500px;
+  max-width: 500px;
   width: 100%;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -299,6 +304,7 @@ export default {
   color: #7f8c8d;
 }
 
+/* Responsive adjustments for mobile */
 @media (max-width: 768px) {
   .product-info {
     flex-direction: column;

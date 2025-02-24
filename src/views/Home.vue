@@ -1,13 +1,11 @@
 <template>
   <div class="home">
-    <div class="premium-heading">
-      <i class="fas fa-crown"></i>
-      <h2>Our Premium Services</h2>
-      <i class="fas fa-crown"></i>
-    </div>
     <p class="tagline">
-      Your one-stop solution for quality Implements, Spares, Used Tractors, and Exclusive Service Support.
+      <strong> We Are Mechanic Company.</strong> Your one-stop solution for quality Implements, Spares, Used Tractors, and Exclusive Service Support.
     </p>
+    <div class="premium-heading">
+       <h2>Our Premium Services</h2>
+     </div>
     <div class="services-overview">
       <router-link to="/implements" class="service-card">
         <i class="fas fa-tools"></i>
@@ -49,7 +47,7 @@ export default {
 .home {
   text-align: center;
   padding: 0.5rem;
-  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  background: linear-gradient(135deg, #ebedee, #ebedee);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -70,8 +68,9 @@ export default {
 
 .premium-heading i {
   color: red; /* Gold color for crowns */
-  font-size: 3rem;
+  font-size: 1rem;
   animation: pulse 2s infinite;
+  background: linear-gradient(135deg, #ebedee, #ebedee);
 }
 
 @keyframes pulse {
@@ -80,20 +79,22 @@ export default {
   100% { transform: scale(1); }
 }
 
-.premium-heading h1 {
-  font-size: 2.5rem;
+.premium-heading h2 {
+  font-size: 1.5rem;
   color: #2c3e50;
   margin: 0;
-  text-transform: uppercase;
   letter-spacing: 1px;
+  white-space: nowrap; /* Prevent heading text from wrapping */
 }
 
 /* Tagline styling */
 .tagline {
   font-size: 1.2rem;
-  color: #7f8c8d;
+  color: black;
   margin-bottom: 2rem;
   max-width: 800px;
+  text-align: left;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Service cards container */
@@ -110,7 +111,7 @@ export default {
   background-color: #ffffff;
   border: 2px solid red;
   padding: 2.5rem;
-  width: 320px;
+  width: 220px;
   text-decoration: none;
   color: #2c3e50;
   border-radius: 12px;
@@ -150,9 +151,8 @@ export default {
     align-items: center;
   }
   
-  /* Optionally reduce font size and gap on smaller screens */
-  .premium-heading {
-    gap: 0.5rem;
+  /* Optionally reduce the font size of the heading on small screens */
+  .premium-heading h2 {
     font-size: 2rem;
   }
 }

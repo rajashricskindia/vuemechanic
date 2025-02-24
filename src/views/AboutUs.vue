@@ -39,7 +39,7 @@
       <p class="commitment-text">
         Our team is passionate about delivering innovative solutions that make a real difference. From minor fixes to major projects, we handle every task with professionalism and care. Your trust inspires us to continually exceed expectations.
       </p>
-      <div class="contact-section">
+      <div class="content-container">
         <h3>Contact Us</h3>
         <p class="contact-details">
           <i class="fas fa-map-marker-alt"></i>
@@ -83,6 +83,7 @@ export default {
   margin: 2rem auto;
   max-width: 1100px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: left;
 }
 
 /* Back link styling */
@@ -130,7 +131,7 @@ export default {
 
 /* Content container styling */
 .content-container {
-  text-align: center;
+  text-align: left;
   padding: 0 1rem;
 }
 
@@ -205,7 +206,7 @@ export default {
 /* Contact section styling */
 .contact-section {
   background-color: #fdfdfd;
-  padding: 1.8rem;
+  padding: 0.3rem;
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
   margin-top: 2rem;
