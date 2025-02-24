@@ -2,7 +2,7 @@
   <div class="home">
     <div class="premium-heading">
       <i class="fas fa-crown"></i>
-      <h1>Our Premium Services</h1>
+      <h6>Our Premium Services</h6>
       <i class="fas fa-crown"></i>
     </div>
     <p class="tagline">
@@ -48,7 +48,7 @@ export default {
 /* Overall container with gradient background */
 .home {
   text-align: center;
-  padding: 2rem;
+  padding: 0.5rem;
   background: linear-gradient(135deg, #fdfbfb, #ebedee);
   min-height: 100vh;
   display: flex;
@@ -108,9 +108,9 @@ export default {
 /* Individual service card styling */
 .service-card {
   background-color: #ffffff;
-  border: 2px solid #2c3e50;
-  padding: 1.5rem;
-  width: 220px;
+  border: 2px solid red;
+  padding: 2.5rem;
+  width: 320px;
   text-decoration: none;
   color: #2c3e50;
   border-radius: 12px;

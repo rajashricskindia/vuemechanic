@@ -131,11 +131,11 @@ export default {
 
 <style scoped>
 .detail-container {
-  padding: 2.5rem;
+  padding: 0.5rem;
   background: linear-gradient(135deg, #ffffff, #f7f7f7);
   min-height: 100vh;
-  max-width: 1100px;
-  margin: 2rem auto;
+  max-width: 1300px;
+  margin: 1rem auto;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -198,11 +198,11 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .product-image {
-  max-width: 400px;
+  max-width:500px;
   width: 100%;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

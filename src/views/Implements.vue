@@ -54,7 +54,7 @@ export default {
 /* Main container with a subtle gradient background */
 .service {
   text-align: center;
-  padding: 2.5rem;
+  padding: 0.5rem;
   background: linear-gradient(135deg, #ffffff, #f7f7f7);
   min-height: 100vh;
 }
