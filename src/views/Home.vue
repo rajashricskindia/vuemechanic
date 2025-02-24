@@ -1,11 +1,13 @@
 <template>
   <div class="home">
     <p class="tagline">
-      <strong> We Are Mechanic Company.</strong> Your one-stop solution for quality Implements, Spares, Used Tractors, and Exclusive Service Support.
+      <strong>Welcome to Mechanic Company!</strong> Empowering modern agriculture with robust &amp; quality Implements, authentic Spares, reliable Used Tractors, and trusted Service Support.
     </p>
     <div class="premium-heading">
-       <h2>Our Premium Services</h2>
-     </div>
+      <i class="fas fa-crown"></i>
+      <h2>Our Premium Services</h2>
+      <i class="fas fa-crown"></i>
+    </div>
     <div class="services-overview">
       <router-link to="/implements" class="service-card">
         <i class="fas fa-tools"></i>
@@ -55,15 +57,14 @@ export default {
   justify-content: center;
 }
 
-/* Premium heading with animated crown icons */
+/* Premium heading with crown icons */
 .premium-heading {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.1rem;
   margin-bottom: 1rem;
-  /* Prevent wrapping on all screen sizes */
-  flex-wrap: nowrap;
+  flex-wrap: nowrap; /* Prevent wrapping on all screen sizes */
 }
 
 .premium-heading i {
@@ -111,7 +112,7 @@ export default {
   background-color: #ffffff;
   border: 2px solid red;
   padding: 2.5rem;
-  width: 220px;
+  width: 230px;
   text-decoration: none;
   color: #2c3e50;
   border-radius: 12px;
@@ -144,16 +145,35 @@ export default {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for small screens */
 @media (max-width: 768px) {
   .services-overview {
     flex-direction: column;
     align-items: center;
   }
   
-  /* Optionally reduce the font size of the heading on small screens */
+  /* Adjust crown icon size and spacing on mobile */
+  .premium-heading {
+    gap: 0.5rem;
+  }
+  .premium-heading i {
+    font-size: 1.2rem;
+  }
   .premium-heading h2 {
     font-size: 2rem;
+  }
+}
+
+/* Additional adjustments for very small screens */
+@media (max-width: 480px) {
+  .premium-heading {
+    gap: 0.3rem;
+  }
+  .premium-heading i {
+    font-size: 1rem;
+  }
+  .premium-heading h2 {
+    font-size: 1.5rem;
   }
 }
 </style>

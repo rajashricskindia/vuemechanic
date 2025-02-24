@@ -9,7 +9,7 @@
     </div>
     <div class="content-container">
       <p class="intro-text">
-        Welcome to <strong>Mechanic Company</strong>, where we solve your challenges with
+        <strong>We are Mechanic Company </strong>, where we solve your challenges with
         <span class="text-primary">honesty, trust, and reliability</span>. We are dedicated to providing top-notch services, ensuring your complete satisfaction and fostering lasting relationships.
       </p>
       <h3 class="fancy-heading">Why Choose Us?</h3>
