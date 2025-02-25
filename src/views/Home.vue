@@ -110,7 +110,7 @@ export default {
 /* Individual service card styling */
 .service-card {
   background-color: #ffffff;
-  border: 2px solid red;
+  border: 2px solid #ea1452;
   padding: 2.5rem;
   width: 230px;
   text-decoration: none;

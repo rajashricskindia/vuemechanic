@@ -268,15 +268,21 @@ export default {
     margin: 0 auto;
   }
   .fancy-list li {
-    flex-direction: row; /* keep icon and text on the same line */
+    flex-direction: row;
     align-items: center;
     justify-content: flex-start;
   }
   .fancy-list li i {
-    margin-bottom: 0; /* remove extra bottom margin if any */
+    margin-bottom: 0;
     margin-right: 0.5rem;
   }
+}
 
-
+/* Additional adjustments for very small screens */
+@media (max-width: 480px) {
+  .about-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
 }
 </style>

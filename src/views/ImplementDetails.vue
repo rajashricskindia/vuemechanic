@@ -18,7 +18,6 @@
       </div>
 
       <!-- Display Current Variant Details -->
-     
       <div class="product-info">
         <img
           :src="currentVariant.productImage"
@@ -33,18 +32,14 @@
             <strong>Price:</strong> ₹{{ currentVariant.price }}
           </p>
           <p class="product-description">{{ currentVariant.details }}</p>
-           <!-- Enquiry Button -->
-      <div class="enquiry-section">
-        <button class="enquiry-button" @click="handleEnquiry">
-          Enquiry
-        </button>
-      </div>
-
-
+          <!-- Enquiry Button -->
+          <div class="enquiry-section">
+            <button class="enquiry-button" @click="handleEnquiry">
+              Enquiry
+            </button>
+          </div>
         </div>
-             </div>
-
-      
+      </div>
 
       <!-- Customer Reviews -->
       <div
@@ -122,9 +117,18 @@ export default {
       }
     },
     handleEnquiry() {
-      // Replace with your enquiry functionality.
-      alert(`Enquiry for ${this.currentVariant.name} (Variant: ${this.currentVariant.variant})`);
-    },
+  
+  const selectedVariant = this.currentVariant;
+  this.$router.push({
+    name: 'PlaceEnquiry',
+    params: { 
+      
+      selectedVariant: JSON.stringify(selectedVariant)
+    }
+  });
+},
+
+
   },
 };
 </script>
@@ -178,7 +182,6 @@ export default {
   border: 1px solid #2980b9;
   border-radius: 4px;
   outline: none;
-  /* Make the dropdown responsive */
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
@@ -233,7 +236,7 @@ export default {
 }
 
 .enquiry-button {
-  background-color: brown;
+  background-color: #ea1452;
   color: #fff;
   border: none;
   padding: 0.8rem 1.6rem;
@@ -244,7 +247,7 @@ export default {
 }
 
 .enquiry-button:hover {
-  background-color: #1c5980;
+  background-color: black;
 }
 
 /* Reviews Section */
@@ -306,6 +309,9 @@ export default {
 
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
+  .detail-container {
+    padding: 1rem;
+  }
   .product-info {
     flex-direction: column;
   }

@@ -188,7 +188,7 @@ export default {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .about-container {
-    padding: 1.5rem;
+    padding: 1rem;
   }
   .section-title {
     font-size: 1.75rem;

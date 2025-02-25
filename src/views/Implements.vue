@@ -87,11 +87,13 @@ export default {
 
 .sub-title {
   font-size: 1.2rem;
-  color: #7f8c8d;
+  color: #2c3e50;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-bottom: 2rem;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  text-align: left;
 }
 
 /* Products grid */
