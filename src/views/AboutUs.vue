@@ -281,8 +281,8 @@ export default {
 /* Additional adjustments for very small screens */
 @media (max-width: 480px) {
   .about-container {
-    padding: 1rem;
-    margin: 1rem;
+    padding: 0.1rem;
+    margin: 0.1rem;
   }
 }
 </style>

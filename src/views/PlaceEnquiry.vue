@@ -1,14 +1,20 @@
 <template>
   <div class="place-enquiry">
+    <router-link to="/" class="back-icon">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </router-link>
     <h2>Place an Enquiry</h2>
     <!-- Display error message if exists -->
     <div v-if="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
+    <!-- Display success message if exists -->
+    <div v-if="successMessage" class="success-message">
+      <i class="fas fa-check-circle" style="color: green; margin-right: 8px;"></i>  {{ successMessage }}
+    </div>
     <div class="enquiry-details" v-if="selectedVariant && Object.keys(selectedVariant).length">
       <p><strong>Enquiry For:</strong> {{ selectedVariant.name }}</p>
       <p><strong>Description:</strong> {{ selectedVariant.variant }}</p>
-      <!-- <p v-if="selectedVariant.price"><strong>Price:</strong> ₹{{ selectedVariant.price }}</p> -->
     </div>
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
@@ -46,7 +52,9 @@
           required
         />
       </div>
-      <button type="submit" class="btn-submit">Submit Enquiry</button>
+      <button type="submit" class="btn-submit" :disabled="isSubmitting">
+        Submit Enquiry
+      </button>
     </form>
   </div>
 </template>
@@ -54,6 +62,7 @@
 <script>
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
+
 export default {
   name: 'PlaceEnquiry',
   data() {
@@ -64,7 +73,9 @@ export default {
         district: ''
       },
       selectedVariant: {},
-      errorMessage: ''
+      errorMessage: '',
+      successMessage: '',
+      isSubmitting: false
     };
   },
   created() {
@@ -84,21 +95,48 @@ export default {
       this.form.mobile = cleanedValue;
     },
     async handleSubmit() {
+      // Disable the button immediately to prevent multiple submissions.
+      this.isSubmitting = true;
+      // Clear any previous messages.
+      this.errorMessage = '';
+      this.successMessage = '';
+
+      // Validate that all fields are filled.
+      if (!this.form.name.trim()) {
+        this.errorMessage = 'Please enter your name.';
+        this.isSubmitting = false;
+        return;
+      }
+      if (!this.form.mobile.trim()) {
+        this.errorMessage = 'Please enter your mobile number.';
+        this.isSubmitting = false;
+        return;
+      }
+      if (this.form.mobile.length !== 10) {
+        this.errorMessage = 'Mobile number must be exactly 10 digits.';
+        this.isSubmitting = false;
+        return;
+      }
+      if (!this.form.district.trim()) {
+        this.errorMessage = 'Please enter your district.';
+        this.isSubmitting = false;
+        return;
+      }
+
       // Combine all the form fields and the selected variant into one object.
       const enquiryData = {
-        productId: this.selectedVariant.productId,
+        productId: this.selectedVariant.id,
         name: this.selectedVariant.name,
         variant: this.selectedVariant.variant,
-        brandname: this.selectedVariant.brandname,
+        // Ensure you use the correct casing for brandName.
+        brandname: this.selectedVariant.brandName,
         description: this.selectedVariant.details,
         customername: this.form.name,
         mobileno: this.form.mobile,
         district: this.form.district
       };
+
       console.log('Enquiry submitted:', enquiryData);
-      
-      // Clear any previous error message.
-      this.errorMessage = '';
       
       // Post the enquiry data to the endpoint.
       try {
@@ -107,10 +145,17 @@ export default {
           enquiryData
         );
         console.log('Response from API:', response.data);
-        // Optionally, add success notification or navigation here.
+        // Show success message.
+        this.successMessage = "Thank you for placing an enquiry, Our team will reach out to you shortly ...!";
+        // Navigate back to the home page after a short delay (e.g., 10 seconds).
+        setTimeout(() => {
+          this.$router.push('/');
+        }, 10000);
       } catch (error) {
         console.error('Error submitting enquiry:', error);
         this.errorMessage = "Sorry, something went wrong while submitting your enquiry. Please try again later.";
+        // Re-enable the button if there's an error.
+        this.isSubmitting = false;
       }
     }
   }
@@ -141,6 +186,17 @@ export default {
   border: 1px solid #f5c6cb;
   border-radius: 4px;
   text-align: center;
+}
+
+.success-message {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .enquiry-details {
@@ -182,7 +238,30 @@ label {
   transition: background-color 0.3s ease;
 }
 
-.btn-submit:hover {
+.btn-submit:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-submit:hover:not(:disabled) {
   background-color: var(--primary-color-hover, black);
+}
+
+.back-icon {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #c0392b;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.back-icon i {
+  margin-right: 0.5rem;
+}
+
+.back-icon:hover {
+  color: #2980b9;
 }
 </style>

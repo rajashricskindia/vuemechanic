@@ -119,10 +119,10 @@ export default {
     handleEnquiry() {
   
   const selectedVariant = this.currentVariant;
+  console.log('Selected Variant:', selectedVariant);
   this.$router.push({
     name: 'PlaceEnquiry',
     params: { 
-      
       selectedVariant: JSON.stringify(selectedVariant)
     }
   });
@@ -244,6 +244,7 @@ export default {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .enquiry-button:hover {
