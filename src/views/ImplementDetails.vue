@@ -99,7 +99,7 @@ export default {
       const productId = this.$route.params.productId;
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/api/allvariants/get?productId=${productId}`
+          `${API_BASE_URL}/api/products/getvariants?productId=${productId}`
         );
         this.variants = response.data;
         if (this.variants.length > 0) {

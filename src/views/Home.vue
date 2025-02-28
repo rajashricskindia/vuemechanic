@@ -1,7 +1,11 @@
 <template>
   <div class="home">
     <p class="tagline">
-      <strong>Welcome to Mechanic Company!</strong> Empowering modern agriculture with robust &amp; quality Implements, authentic Spares, reliable Used Tractors, and trusted Service Support.
+      <strong>We are Mechanic Company!! </strong> on a mission to empower modern agriculture with robust &amp; quality Implements, authentic Spares, reliable Used Tractors, and trusted Service Support.
+      
+    </p>
+    <p class="tagline">
+      <strong>Your Trusted Partner in Agri Mechanization.</strong>
     </p>
     <div class="premium-heading">
       <i class="fas fa-crown"></i>

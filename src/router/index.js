@@ -9,6 +9,7 @@ import UsedTractors from '../views/UsedTractors.vue'
 import MechanicSupport from '../views/MechanicSupport.vue'
 import ImplementDetails from '../views/ImplementDetails.vue'
 import PlaceEnquiry from '../views/PlaceEnquiry.vue'
+import UsedTractorDetails from '../views/UsedTractorDetails.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -19,6 +20,7 @@ const routes = [
   { path: '/UsedTractors', name: 'UsedTractors', component: UsedTractors },
   { path: '/MechanicSupport', name: 'MechanicSupport', component: MechanicSupport },
   { path: '/ImplementDetails/:productId', name: 'ImplementDetails', component: ImplementDetails },
+  { path: '/UsedTractorDetails/:productId', name: 'UsedTractorDetails', component: UsedTractorDetails },
   { path: '/PlaceEnquiry/:selectedVariant', name: 'PlaceEnquiry', component: PlaceEnquiry }
 ]
 

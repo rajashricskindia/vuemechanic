@@ -40,7 +40,7 @@ export default {
   methods: {
     async fetchProducts() {
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/allproducts/getall`);
+        const response = await axios.get(`${API_BASE_URL}/api/products/getall?pstype=1`);
         this.products = response.data;
       } catch (error) {
         console.error('Error fetching products:', error);

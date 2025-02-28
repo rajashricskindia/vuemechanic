@@ -141,7 +141,7 @@ export default {
       // Post the enquiry data to the endpoint.
       try {
         const response = await axios.post(
-          `${API_BASE_URL}/api/ProductEnquiry/postmc`,
+          `${API_BASE_URL}/api/products/postmc`,
           enquiryData
         );
         console.log('Response from API:', response.data);
