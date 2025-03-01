@@ -3,67 +3,83 @@
     <router-link to="/" class="back-icon">
       <i class="fas fa-arrow-left"></i> Back to Home
     </router-link>
-    <h1 class="product-title">Service Expert</h1>
+    <h1 class="product-title">Service Expert at your Doorstep</h1>
     <div v-if="loading" class="loading">Loading product details...</div>
     <div v-else-if="error" class="error">Error: {{ error }}</div>
     <div v-else>
-      <!-- Variant Selection Dropdown -->
-      <div class="variant-selector">
-        <label for="variantSelect" class="variant-label">When do you want him at your doorstep</label>
-        <select id="variantSelect" v-model="selectedVariant" class="variant-dropdown">
-          <option v-for="variant in variants" :key="variant.variant" :value="variant.variant">
-            {{ variant.variant }}
-          </option>
-        </select>
-      </div>
+      <div class="content-container">
+        <!-- Form Section -->
+        <div class="form-container">
+          <!-- Tractor Make Dropdown -->
+          <div class="form-group">
+            <label for="tractorMake" class="form-label">Your Tractor Company</label>
+            <select id="tractorMake" v-model="selectedTractorMake" class="form-control">
+              <option value="Mahindra">Mahindra</option>
+              <option value="Massey Ferguson">Massey Ferguson</option>
+              <option value="Sonalika">Sonalika</option>
+              <option value="Swaraj">Swaraj</option>
+              <option value="John Deere">John Deere</option>
+              <option value="New Holland">New Holland</option>
+              <option value="Eicher">Eicher</option>
+              <option value="Force">Force</option>
+              <option value="Farmtrac">Farmtrac</option>
+              <option value="Powertrac">Powertrac</option>
+              <option value="Escorts">Escorts</option>
+              <option value="Kubota">Kubota</option>
+              <option value="Indo Farm">Indo Farm</option>
+              <option value="Preet">Preet</option>
+              <option value="Captain">Captain</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
 
-      <!-- Display Current Variant Details -->
-      <div class="product-info">
-        <img
-          :src="currentVariant.productImage"
-          :alt="currentVariant.name"
-          class="product-image"
-        />
-        <div class="product-details">
-         <!-- <p class="product-variant">
-            <strong>When do you want our mechanic :</strong> {{ currentVariant.variant }}
-          </p>-->
-          <p class="product-price">
-            <strong>Service Base Price:</strong> ₹{{ currentVariant.price }}
-          </p>
-          <p class="product-description">{{ currentVariant.details }}</p>
-          <!-- Enquiry Button -->
-          <div class="enquiry-section">
-            <button class="enquiry-button" @click="handleEnquiry">
-              Book Now
-            </button>
+          <!-- Tractor Model Text Input -->
+          <div class="form-group">
+            <label for="tractorModel" class="form-label">Your Tractor Model</label>
+            <input
+              type="text"
+              id="tractorModel"
+              v-model="tractorModel"
+              class="form-control"
+              placeholder="Enter Tractor Model"
+              maxlength="50"
+            />
+          </div>
+
+          <!-- Variant Selection Dropdown -->
+          <div class="form-group">
+            <label for="variantSelect" class="form-label">When do you want him</label>
+            <select id="variantSelect" v-model="selectedVariant" class="form-control">
+              <option
+                v-for="variant in variants"
+                :key="variant.variant"
+                :value="variant.variant"
+              >
+                {{ variant.variant }}
+              </option>
+            </select>
           </div>
         </div>
-      </div>
 
-      <!-- Customer Reviews -->
-      <!-- 
-      <div
-        class="reviews-section"
-        v-if="currentVariant.reviews && currentVariant.reviews.length"
-      >
-        <h2>Customer Reviews</h2>
-        <div class="reviews-list">
-          <div class="review-card" v-for="(review, index) in currentVariant.reviews" :key="index">
-            <img
-              :src="review.imageUrl"
-              alt="Reviewer Image"
-              class="reviewer-image"
-            />
-            <div class="review-content">
-              <h4 class="reviewer-name">{{ review.name }}</h4>
-              <p class="review-text">"{{ review.review }}"</p>
-              <p class="review-rating">Rating: {{ review.rating }} / 5</p>
-              <p class="review-date">{{ review.date }}</p>
+        <!-- Display Current Variant Details -->
+        <div class="product-info">
+          <img
+            :src="currentVariant.productImage"
+            :alt="currentVariant.name"
+            class="product-image"
+          />
+          <div class="product-details">
+            <p class="product-price">
+              <strong>Service Base Price:</strong> ₹{{ currentVariant.price }}
+            </p>
+            <div class="enquiry-section">
+              <button class="enquiry-button" @click="handleEnquiry">
+                Book Now
+              </button>
             </div>
           </div>
         </div>
-      </div>-->
+      </div><!-- .content-container -->
     </div>
   </div>
 </template>
@@ -80,6 +96,8 @@ export default {
       loading: true,
       error: null,
       selectedVariant: null,
+      selectedTractorMake: 'Mahindra', // default tractor make
+      tractorModel: '', // tractor model input
     };
   },
   computed: {
@@ -108,44 +126,56 @@ export default {
           this.selectedVariant = this.variants[0].variant;
         }
       } catch (err) {
-        console.error('Error fetching  details:', err);
+        console.error('Error fetching details:', err);
         this.error =
           (err.response && err.response.data) ||
           err.message ||
-          'Failed to load  details.';
+          'Failed to load details.';
       } finally {
         this.loading = false;
       }
     },
     handleEnquiry() {
-  
-  const selectedVariant = this.currentVariant;
-  console.log('Selected Variant:', selectedVariant);
-  this.$router.push({
-    name: 'PlaceEnquiry',
-    params: { 
-      selectedVariant: JSON.stringify(selectedVariant)
-    }
-  });
-},
-
-
+      // Consolidate selectedTractorMake and tractorModel into a single description string
+      const description = `Tractor Make: ${this.selectedTractorMake}, Tractor Model: ${this.tractorModel}`;
+      
+      // Create a new object combining current variant details with the consolidated description
+      const selectedVariant = {
+        id: this.currentVariant.id,
+        name: this.currentVariant.name,
+        price: this.currentVariant.price,
+        brandName: description,
+        variant: this.currentVariant.variant,
+        details: description
+      };
+      console.log('Selected Variant:', selectedVariant);
+      console.log('Selected Tractor Make:', this.selectedTractorMake);
+      
+      // Pass the updated variant details to the PlaceEnquiry route
+      this.$router.push({
+        name: 'PlaceEnquiry',
+        params: { 
+          selectedVariant: JSON.stringify(selectedVariant)
+        }
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
+/* Container and general layout */
 .detail-container {
   padding: 2.5rem;
   background: linear-gradient(135deg, #ffffff, #f7f7f7);
   min-height: 100vh;
-  max-width: 1300px;
-  margin: 1rem auto;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 2rem auto;
   border-radius: 12px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Back icon */
 .back-icon {
   display: inline-flex;
   align-items: center;
@@ -164,164 +194,146 @@ export default {
   color: #2980b9;
 }
 
+/* Title */
+.product-title {
+  font-size: 2.4rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Loading and error messages */
 .loading,
 .error {
   font-size: 1.2rem;
   color: #7f8c8d;
+  text-align: center;
   margin: 2rem 0;
 }
 
-.variant-selector {
-  margin-bottom: 1.5rem;
-  text-align: center;
+/* Flex container for form and product info */
+.content-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
 }
 
-/* Updated dropdown styles */
-.variant-dropdown {
+/* Form container */
+.form-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  flex: 1;
+  max-width: 500px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-label {
   font-size: 1.1rem;
-  padding: 0.4rem 0.6rem;
-  border: 1px solid #2980b9;
-  border-radius: 4px;
-  outline: none;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-control {
   width: 100%;
-  max-width: 300px;
+  max-width: 250px; /* Limits the width on larger screens */
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  box-sizing: border-box;
   margin: 0 auto;
 }
 
-.variant-label {
-  font-size: 1.1rem;
-  color: #2c3e50;
-  margin-right: 0.5rem;
+.form-control:focus {
+  border-color: #2980b9;
+  outline: none;
 }
 
-.product-title {
-  font-size: 2.2rem;
-  color: #2c3e50;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
+/* Product Info */
 .product-info {
+  flex: 1;
+  max-width: 500px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  padding: 1rem;
 }
 
 .product-image {
   max-width: 300px;
   width: 100%;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .product-details {
-  max-width: 500px;
-  text-align: left;
   font-size: 1.1rem;
   color: #555;
-}
-
-.product-variant,
-.product-price,
-.product-description {
-  margin-bottom: 1rem;
   text-align: left;
+  width: 100%;
 }
 
+.product-price {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Enquiry Button */
 .enquiry-section {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 .enquiry-button {
   background-color: #ea1452;
   color: #fff;
   border: none;
-  padding: 0.8rem 1.6rem;
+  padding: 0.9rem 2rem;
   font-size: 1.1rem;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
 }
 
 .enquiry-button:hover {
-  background-color: black;
+  background-color: #b0123c;
 }
 
-/* Reviews Section */
-.reviews-section {
-  margin-top: 2rem;
-  text-align: left;
-}
-
-.reviews-section h2 {
-  font-size: 1.8rem;
-  color: #2c3e50;
-  margin-bottom: 1rem;
-}
-
-.reviews-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.review-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  background-color: #ffffff;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.reviewer-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.review-content {
-  font-size: 0.95rem;
-  color: #555;
-}
-
-.review-content h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1rem;
-  color: #2c3e50;
-}
-
-.review-text {
-  margin: 0;
-  font-style: italic;
-}
-
-.review-rating,
-.review-date {
-  font-size: 0.85rem;
-  color: #7f8c8d;
-}
-
-/* Responsive adjustments for mobile */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .detail-container {
-    padding: 1rem;
+    padding: 1.5rem;
   }
-  .product-info {
+  .product-title {
+    font-size: 2rem;
+  }
+  .content-container {
     flex-direction: column;
+    align-items: center;
+  }
+  .form-container,
+  .product-info {
+    max-width: 90%;
   }
   .product-details {
     text-align: center;
   }
-  .reviews-section {
-    text-align: center;
+}
+
+@media (max-width: 480px) {
+  .form-control {
+    max-width: 100%;
   }
 }
 </style>
