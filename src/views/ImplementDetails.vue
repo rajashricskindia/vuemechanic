@@ -322,5 +322,18 @@ export default {
   .reviews-section {
     text-align: center;
   }
+  .variant-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .variant-label {
+    margin-bottom: 1.0rem; /* adds extra spacing below the label */
+    margin-right: 0; /* removes the horizontal margin */
+  }
+  .variant-dropdown {
+    width: 100%;
+    max-width: 300px;
+  }
 }
 </style>

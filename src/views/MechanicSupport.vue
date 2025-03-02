@@ -166,7 +166,7 @@ export default {
 <style scoped>
 /* Container and general layout */
 .detail-container {
-  padding: 2.5rem;
+  padding: 1.5rem;
   background: linear-gradient(135deg, #ffffff, #f7f7f7);
   min-height: 100vh;
   max-width: 1200px;
@@ -216,22 +216,24 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 /* Form container */
 .form-container {
   background: #fff;
-  padding: 2rem;
+  padding: 0.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   flex: 1;
   max-width: 500px;
+  justify-content: center;
+  border: 1x solid #ea1452;
 }
 
 .form-group {
   margin-bottom: 1.5rem;
-  text-align: left;
+  text-align: center;
 }
 
 .form-label {
@@ -244,16 +246,16 @@ export default {
 .form-control {
   width: 100%;
   max-width: 250px; /* Limits the width on larger screens */
-  padding: 0.6rem 1rem;
+  padding: 0.6rem 0.1rem;
   font-size: 1rem;
-  border: 1px solid #dcdcdc;
+  border: 1px solid #555;
   border-radius: 6px;
   box-sizing: border-box;
   margin: 0 auto;
 }
 
 .form-control:focus {
-  border-color: #2980b9;
+  border-color: #ea1452;
   outline: none;
 }
 
@@ -265,7 +267,7 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0.1rem;
 }
 
 .product-image {
@@ -307,16 +309,15 @@ export default {
 }
 
 .enquiry-button:hover {
-  background-color: #b0123c;
+  background-color: black;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .detail-container {
-    padding: 1.5rem;
+    padding: 0.5rem; /* Increased padding for small screens */
   }
   .product-title {
-    font-size: 2rem;
+    font-size: 1.0rem;
   }
   .content-container {
     flex-direction: column;
@@ -324,16 +325,10 @@ export default {
   }
   .form-container,
   .product-info {
-    max-width: 90%;
+    max-width: 100%; /* Allow sections to use full width */
   }
   .product-details {
     text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .form-control {
-    max-width: 100%;
   }
 }
 </style>
