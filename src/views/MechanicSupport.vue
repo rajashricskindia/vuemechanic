@@ -137,7 +137,7 @@ export default {
     },
     handleEnquiry() {
       // Consolidate selectedTractorMake and tractorModel into a single description string
-      const description = `Tractor Make: ${this.selectedTractorMake}, Tractor Model: ${this.tractorModel}`;
+      const description = `Make: ${this.selectedTractorMake}, Model: ${this.tractorModel} , Service: ${this.currentVariant.variant} `;
       
       // Create a new object combining current variant details with the consolidated description
       const selectedVariant = {

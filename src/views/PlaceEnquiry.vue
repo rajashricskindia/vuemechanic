@@ -14,7 +14,7 @@
     </div>
     <div class="enquiry-details" v-if="selectedVariant && Object.keys(selectedVariant).length">
       <p><strong>Enquiry For:</strong> {{ selectedVariant.name }}</p>
-      <p><strong>Description:</strong> {{ selectedVariant.variant }}</p>
+      <p><strong>Description:</strong> {{ selectedVariant.details }}</p>
     </div>
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
@@ -131,6 +131,7 @@ export default {
         // Ensure you use the correct casing for brandName.
         brandname: this.selectedVariant.brandName,
         description: this.selectedVariant.details,
+        isspare: this.selectedVariant.isspare,
         customername: this.form.name,
         mobileno: this.form.mobile,
         district: this.form.district

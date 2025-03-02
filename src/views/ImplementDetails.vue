@@ -119,6 +119,7 @@ export default {
     handleEnquiry() {
   
   const selectedVariant = this.currentVariant;
+  selectedVariant.details = this.currentVariant.variant
   console.log('Selected Variant:', selectedVariant);
   this.$router.push({
     name: 'PlaceEnquiry',
