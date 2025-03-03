@@ -1,11 +1,21 @@
 <template>
-    <div class="detail-container">
-      <router-link to="/UsedTractors" class="back-icon">
-        <i class="fas fa-arrow-left"></i> Back to Used Tractors Home
-      </router-link>
-      <h1 class="product-title">{{ currentVariant.name }}</h1>
-      <div v-if="loading" class="loading">Loading product details...</div>
-      <div v-else-if="error" class="error">Error: {{ error }}</div>
+  <div class="detail-container">
+    <router-link to="/UsedTractors" class="back-icon">
+      <i class="fas fa-arrow-left"></i> Back to Used Tractors Home
+    </router-link>
+    
+    <!-- Only show title if there is at least one variant -->
+    <h1 class="product-title" v-if="variants.length > 0">{{ currentVariant.name }}</h1>
+    
+    <div v-if="loading" class="loading">Loading product details...</div>
+    <div v-else-if="error" class="error">Error: {{ error }}</div>
+    <div v-else>
+      <!-- Check if there are any variants available -->
+      <div v-if="variants.length === 0" class="sold-out-message">
+        <label class="form-label">Currently all available models are sold out.</label>
+      <p></p>
+        <label class="form-label">Keep checking here...once tractor is available, we will show it here .. .</label>
+      </div>
       <div v-else>
         <!-- Variant Selection Dropdown -->
         <div class="variant-selector">
@@ -16,7 +26,7 @@
             </option>
           </select>
         </div>
-  
+
         <!-- Display Current Variant Details -->
         <div class="product-info">
           <img
@@ -40,304 +50,233 @@
             </div>
           </div>
         </div>
-  
-        <!-- Customer Reviews -->
-         <!-- 
-        <div
-          class="reviews-section"
-          v-if="currentVariant.reviews && currentVariant.reviews.length"
-        >
-          <h2>Customer Reviews</h2>
-          <div class="reviews-list">
-            <div class="review-card" v-for="(review, index) in currentVariant.reviews" :key="index">
-              <img
-                :src="review.imageUrl"
-                alt="Reviewer Image"
-                class="reviewer-image"
-              />
-              <div class="review-content">
-                <h4 class="reviewer-name">{{ review.name }}</h4>
-                <p class="review-text">"{{ review.review }}"</p>
-                <p class="review-rating">Rating: {{ review.rating }} / 5</p>
-                <p class="review-date">{{ review.date }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
-      </div>
+      </div> <!-- end variant available check -->
     </div>
-  </template>
-  
-  <script>
-  import axios from 'axios';
-  import { API_BASE_URL } from '../config';
-  
-  export default {
-    name: 'UsedTractorDetails',
-    data() {
-      return {
-        variants: [],
-        loading: true,
-        error: null,
-        selectedVariant: null,
-      };
-    },
-    computed: {
-      // Return the variant that matches the selected variant string.
-      currentVariant() {
-        if (this.variants.length === 0) return {};
-        return (
-          this.variants.find(variant => variant.variant === this.selectedVariant) ||
-          this.variants[0]
-        );
-      },
-    },
-    created() {
-      this.fetchProductDetails();
-    },
-    methods: {
-      async fetchProductDetails() {
-        const productId = this.$route.params.productId;
-        try {
-          const response = await axios.get(
-            `${API_BASE_URL}/api/products/getvariants?productId=${productId}`
-          );
-          this.variants = response.data;
-          if (this.variants.length > 0) {
-            // Initialize with the first variant's "variant" attribute.
-            this.selectedVariant = this.variants[0].variant;
-          }
-        } catch (err) {
-          console.error('Error fetching product details:', err);
-          this.error =
-            (err.response && err.response.data) ||
-            err.message ||
-            'Failed to load product details.';
-        } finally {
-          this.loading = false;
-        }
-      },
-      handleEnquiry() {
-    
-    const selectedVariant = this.currentVariant;
-    selectedVariant.details = this.currentVariant.variant;
-    console.log('Selected Variant:', selectedVariant);
-    this.$router.push({
-      name: 'PlaceEnquiry',
-      params: { 
-        selectedVariant: JSON.stringify(selectedVariant)
-      }
-    });
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+import { API_BASE_URL } from '../config';
+
+export default {
+  name: 'UsedTractorDetails',
+  data() {
+    return {
+      variants: [],
+      loading: true,
+      error: null,
+      selectedVariant: null,
+    };
   },
-  
-  
+  computed: {
+    // Return the variant that matches the selected variant string.
+    currentVariant() {
+      if (this.variants.length === 0) return {};
+      return (
+        this.variants.find(variant => variant.variant === this.selectedVariant) ||
+        this.variants[0]
+      );
     },
-  };
-  </script>
-  
-  <style scoped>
+  },
+  created() {
+    this.fetchProductDetails();
+  },
+  methods: {
+    async fetchProductDetails() {
+      const productId = this.$route.params.productId;
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/api/products/getvariants?productId=${productId}`
+        );
+        this.variants = response.data;
+        if (this.variants.length > 0) {
+          // Initialize with the first variant's "variant" attribute.
+          this.selectedVariant = this.variants[0].variant;
+        }
+      } catch (err) {
+        console.error('Error fetching product details:', err);
+        this.error =
+          (err.response && err.response.data) ||
+          err.message ||
+          'Failed to load product details.';
+      } finally {
+        this.loading = false;
+      }
+    },
+    handleEnquiry() {
+      const selectedVariant = this.currentVariant;
+      selectedVariant.details = this.currentVariant.variant;
+      console.log('Selected Variant:', selectedVariant);
+      this.$router.push({
+        name: 'PlaceEnquiry',
+        params: { 
+          selectedVariant: JSON.stringify(selectedVariant)
+        }
+      });
+    },
+  },
+};
+</script>
+
+<style scoped>
+.detail-container {
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #ffffff, #f7f7f7);
+  min-height: 100vh;
+  max-width: 1300px;
+  margin: 1rem auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.back-icon {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #c0392b;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.back-icon i {
+  margin-right: 0.5rem;
+}
+
+.back-icon:hover {
+  color: #2980b9;
+}
+
+.loading,
+.error {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin: 2rem 0;
+}
+
+.variant-selector {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Updated dropdown styles */
+.variant-dropdown {
+  font-size: 1.1rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #2980b9;
+  border-radius: 4px;
+  outline: none;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.variant-label {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  margin-right: 0.5rem;
+}
+
+.product-title {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.product-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.product-image {
+  max-width: 500px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-details {
+  max-width: 500px;
+  text-align: left;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.product-variant,
+.product-price,
+.product-description {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.enquiry-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.enquiry-button {
+  background-color: #ea1452;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.enquiry-button:hover {
+  background-color: black;
+}
+
+/* Sold-out message style */
+.sold-out-message {
+  background: #f1f8ff;
+  border: 1px solid #a3c0e9;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+.sold-out-message .form-label {
+  font-weight: bold;
+  color: #2980b9;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
   .detail-container {
-    padding: 2.5rem;
-    background: linear-gradient(135deg, #ffffff, #f7f7f7);
-    min-height: 100vh;
-    max-width: 1300px;
-    margin: 1rem auto;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .back-icon {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    color: #c0392b;
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    transition: color 0.3s ease;
-  }
-  
-  .back-icon i {
-    margin-right: 0.5rem;
-  }
-  
-  .back-icon:hover {
-    color: #2980b9;
-  }
-  
-  .loading,
-  .error {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-    margin: 2rem 0;
-  }
-  
-  .variant-selector {
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-  
-  /* Updated dropdown styles */
-  .variant-dropdown {
-    font-size: 1.1rem;
-    padding: 0.4rem 0.6rem;
-    border: 1px solid #2980b9;
-    border-radius: 4px;
-    outline: none;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-  }
-  
-  .variant-label {
-    font-size: 1.1rem;
-    color: #2c3e50;
-    margin-right: 0.5rem;
-  }
-  
-  .product-title {
-    font-size: 2.2rem;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-  
-  .product-info {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
-  }
-  
-  .product-image {
-    max-width: 500px;
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .product-details {
-    max-width: 500px;
-    text-align: left;
-    font-size: 1.1rem;
-    color: #555;
-  }
-  
-  .product-variant,
-  .product-price,
-  .product-description {
-    margin-bottom: 1rem;
-    text-align: left;
-  }
-  
-  .enquiry-section {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .enquiry-button {
-    background-color: #ea1452;
-    color: #fff;
-    border: none;
-    padding: 0.8rem 1.6rem;
-    font-size: 1.1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-  }
-  
-  .enquiry-button:hover {
-    background-color: black;
-  }
-  
-  /* Reviews Section */
-  .reviews-section {
-    margin-top: 2rem;
-    text-align: left;
-  }
-  
-  .reviews-section h2 {
-    font-size: 1.8rem;
-    color: #2c3e50;
-    margin-bottom: 1rem;
-  }
-  
-  .reviews-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .review-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    background-color: #ffffff;
     padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
-  .reviewer-image {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
+  .product-info {
+    flex-direction: column;
   }
-  
-  .review-content {
-    font-size: 0.95rem;
-    color: #555;
+  .product-details {
+    text-align: center;
   }
-  
-  .review-content h4 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1rem;
-    color: #2c3e50;
+  .reviews-section {
+    text-align: center;
   }
-  
-  .review-text {
-    margin: 0;
-    font-style: italic;
-  }
-  
-  .review-rating,
-  .review-date {
-    font-size: 0.85rem;
-    color: #7f8c8d;
-  }
-  
-  /* Responsive adjustments for mobile */
-  @media (max-width: 768px) {
-    .detail-container {
-      padding: 1rem;
-    }
-    .product-info {
-      flex-direction: column;
-    }
-    .product-details {
-      text-align: center;
-    }
-    .reviews-section {
-      text-align: center;
-    }
-    .variant-selector {
+  .variant-selector {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-    .variant-label {
-    margin-bottom: 1.0rem; /* adds extra spacing below the label */
-    margin-right: 0; /* removes the horizontal margin */
+  .variant-label {
+    margin-bottom: 1rem;
+    margin-right: 0;
   }
   .variant-dropdown {
     width: 100%;
     max-width: 300px;
   }
-  }
-  </style>
-  
+}
+</style>
