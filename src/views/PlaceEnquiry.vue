@@ -204,6 +204,7 @@ export default {
   margin-bottom: 1.5rem;
   text-align: center;
   color: var(--text-color, #555);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .form-group {

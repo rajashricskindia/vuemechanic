@@ -13,8 +13,8 @@
       <!-- Check if there are any variants available -->
       <div v-if="variants.length === 0" class="sold-out-message">
         <label class="form-label">Currently all available models are sold out.</label>
-      <p></p>
-        <label class="form-label">Keep checking here...once tractor is available, we will show it here .. .</label>
+        <p></p>
+        <label class="form-label">Keep checking here...once tractor is available, we will show it here.</label>
       </div>
       <div v-else>
         <!-- Variant Selection Dropdown -->
@@ -44,8 +44,12 @@
             <p class="product-description">{{ currentVariant.details }}</p>
             <!-- Enquiry Button -->
             <div class="enquiry-section">
-              <button class="enquiry-button" @click="handleEnquiry">
-                Enquiry
+              <button 
+                class="enquiry-button" 
+                :disabled="!isEnquiryAvailable" 
+                @click="handleEnquiry"
+              >
+                {{ isEnquiryAvailable ? 'Enquiry' : 'Sold Out' }}
               </button>
             </div>
           </div>
@@ -78,6 +82,13 @@ export default {
         this.variants[0]
       );
     },
+    // Check if currentVariant.brandName contains the substring "available" (case-insensitive).
+    isEnquiryAvailable() {
+      return (
+        this.currentVariant.brandName &&
+        this.currentVariant.brandName.toLowerCase().includes('available')
+      );
+    }
   },
   created() {
     this.fetchProductDetails();
@@ -105,6 +116,8 @@ export default {
       }
     },
     handleEnquiry() {
+      // Only proceed if enquiry is available.
+      if (!this.isEnquiryAvailable) return;
       const selectedVariant = this.currentVariant;
       selectedVariant.details = this.currentVariant.variant;
       console.log('Selected Variant:', selectedVariant);
@@ -235,6 +248,12 @@ export default {
 
 .enquiry-button:hover {
   background-color: black;
+}
+
+/* Style for disabled enquiry button */
+.enquiry-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 /* Sold-out message style */

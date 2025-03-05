@@ -33,13 +33,13 @@
           <router-link to="/contactus" class="footer-link">Contact Us</router-link>
         </div>
         <div class="social-icons">
-          <a href="https://www.facebook.com" target="_blank" class="social-icon">
+          <a href="https://www.facebook.com/cskindiastartup" target="https://www.facebook.com/cskindiastartup" class="social-icon">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="https://www.youtube.com" target="_blank" class="social-icon">
+          <a href="https://youtu.be/tpS3UUaC5vE?si=Xx840u0vb6mClyI4" target="https://youtu.be/tpS3UUaC5vE?si=Xx840u0vb6mClyI4" class="social-icon">
             <i class="fab fa-youtube"></i>
           </a>
-          <a href="https://www.instagram.com" target="_blank" class="social-icon">
+          <a href="https://www.instagram.com/cskagroup?igsh=b2wwaTM5aGN6bDFt" target="https://www.instagram.com/cskagroup?igsh=b2wwaTM5aGN6bDFt" class="social-icon">
             <i class="fab fa-instagram"></i>
           </a>
         </div>
