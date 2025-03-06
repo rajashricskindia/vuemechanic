@@ -82,7 +82,7 @@
 
         <!-- Display Current Variant Details -->
         <div class="product-info">
-          <img src="assets/images/sparesall.png" alt="Spare Parts" class="product-image" />
+          <img src="https://raw.githubusercontent.com/rajashricskindia/mcdata/refs/heads/main/Spares/sparesall.png" alt="Spare Parts" class="product-image" />
           <div class="product-details">
             <div class="enquiry-section">
               <button class="enquiry-button" @click="handleEnquiry">
