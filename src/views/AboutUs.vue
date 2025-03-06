@@ -5,7 +5,7 @@
     </router-link>
     <h2 class="section-title">About Us</h2>
     <div class="logo-container">
-      <img src="assets/logo.png" alt="Mechanic Company Logo" class="aboutus-logo" />
+      <img src="@/assets/logo.png" alt="Mechanic Company Logo" class="aboutus-logo" />
     </div>
     <div class="content-container">
       <p class="intro-text">
