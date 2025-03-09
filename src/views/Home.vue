@@ -14,7 +14,8 @@
     </div>
     <div class="services-overview">
       <router-link to="/implements" class="service-card">
-        <i class="fas fa-tools"></i>
+        <!-- <i class="fas fa-tools"></i> -->
+         <img src="https://raw.githubusercontent.com/rajashricskindia/mcdata/refs/heads/main/Attachments/implements.png" alt="implements" style="width: 100px; height: 100px;">
         <h3>Attachments (Implements)</h3>
         <p>Explore our range of high-quality implements.</p>
       </router-link>
@@ -24,17 +25,17 @@
         <p>Reliable spares to keep your machinery running smoothly.</p>
       </router-link>
       <router-link to="/usedtractors" class="service-card">
-        <i class="fas fa-tractor"></i>
+        <i class="fas fa-tractor" style="color:#ea1452"></i>
         <h3>Used Tractors</h3>
         <p>Find quality used tractors at competitive prices.</p>
       </router-link>
       <router-link to="/mechanicsupport" class="service-card">
-        <i class="fas fa-user-cog"></i>
+        <i class="fas fa-user-cog" style="color: blue;"></i>
         <h3>Mechanic Support</h3>
         <p>Expert support to service your tractor at your doorstep.</p>
       </router-link>
-      <router-link to="/mechanicsupport" class="service-card">
-        <i class="fas fa-concierge-bell"></i>
+      <router-link to="/otherservices" class="service-card">
+        <i class="fas fa-concierge-bell" style="color: yellowgreen;"></i>
         <h3>Other Services</h3>
         <p>Other Agri Mechanization Linked Services.</p>
       </router-link>
