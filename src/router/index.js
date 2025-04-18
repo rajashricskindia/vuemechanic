@@ -5,7 +5,7 @@ import AboutUs from '../views/AboutUs.vue'
 import Home from '../views/Home.vue'
 import Implements from '../views/Implements.vue'
 import Spares from '../views/Spares.vue'
-import UsedTractors from '../views/UsedTractors.vue'
+
 import MechanicSupport from '../views/MechanicSupport.vue'
 import ImplementDetails from '../views/ImplementDetails.vue'
 import PlaceEnquiry from '../views/PlaceEnquiry.vue'
@@ -19,7 +19,6 @@ const routes = [
   { path: '/AboutUs', name: 'AboutUs', component: AboutUs },
   { path: '/Implements', name: 'Implements', component: Implements },
   { path: '/Spares', name: 'Spares', component: Spares },
-  { path: '/UsedTractors', name: 'UsedTractors', component: UsedTractors },
   { path: '/MechanicSupport', name: 'MechanicSupport', component: MechanicSupport },
   { path: '/OtherServices', name: 'OtherServices', component: OtherServices },
   { path: '/ImplementDetails/:productId', name: 'ImplementDetails', component: ImplementDetails },

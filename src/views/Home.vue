@@ -24,11 +24,11 @@
         <h3>Spares</h3>
         <p>Reliable spares to keep your machinery running smoothly.</p>
       </router-link>
-      <router-link to="/usedtractors" class="service-card">
+     <!-- <router-link to="/usedtractors" class="service-card">
         <i class="fas fa-tractor" style="color:#ea1452"></i>
         <h3>Used Tractors</h3>
         <p>Find quality used tractors at competitive prices.</p>
-      </router-link>
+      </router-link>-->
       <router-link to="/mechanicsupport" class="service-card">
         <i class="fas fa-user-cog" style="color: blue;"></i>
         <h3>Mechanic Support</h3>

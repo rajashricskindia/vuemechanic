@@ -13,7 +13,7 @@
             <li><router-link to="/" @click="toggleMenu">Home</router-link></li>
             <li><router-link to="/implements" @click="toggleMenu">Implements</router-link></li>
             <li><router-link to="/spares" @click="toggleMenu">Spares</router-link></li>
-            <li><router-link to="/usedtractors" @click="toggleMenu">Used Tractors</router-link></li>
+            
             <li><router-link to="/mechanicsupport" @click="toggleMenu">Mechanic Support</router-link></li>
             <li><router-link to="/otherservices" @click="toggleMenu">Other Services</router-link></li>
             <li><router-link to="/aboutus" @click="toggleMenu">About Us</router-link></li>

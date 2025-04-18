@@ -4,7 +4,7 @@
       <i class="fas fa-arrow-left"></i> Back to Home
     </router-link>
     <p class="catchy">With our large inventory of spare parts, we’ll keep your equipment fully operational and always up and running.</p>
-<p class="catchy">We promise to always have the parts you need!</p>
+    <p class="catchy">We promise to always have the parts you need!</p>
 
     <div v-if="loading" class="loading">Loading Spare details...</div>
     <div v-else-if="error" class="error">Error: {{ error }}</div>
@@ -51,13 +51,13 @@
 
           <!-- Spare Selection Input -->
           <div class="form-group">
-            <label for="tractorSpare" class="form-label">Type Spare name you want</label>
+            <label for="tractorSpare" class="form-label">Type Spare name you want (From below catalog)</label>
             <input
               type="text"
               id="tractorSpare"
               v-model="tractorSpare"
               class="form-control"
-              placeholder="Enter Tractor Spare"
+              placeholder="Enter Tractor Spare (From below catalog)"
               maxlength="50"
             />
           </div>
@@ -92,6 +92,23 @@
           </div>
         </div>
       </div><!-- .content-container -->
+
+      <!-- PDF Catalog Preview -->
+      <div class="pdf-embed-section" v-if="selectedTractorMake !== '--Select--'">
+        <h2>{{ selectedTractorMake }} Spare Parts Catalog</h2>
+        <iframe
+          v-if="pdfExists"
+          :src="computedPdfUrl"
+          width="100%"
+          height="500px"
+          class="pdf-frame"
+        ></iframe>
+        <div class="download-link">
+          <a v-if="pdfExists" :href="computedPdfUrl" download class="custom-download-btn">📥 Download Catalog</a>
+          <p v-else class="fallback-message">⚠️ Catalog not available for this brand.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -107,59 +124,63 @@ export default {
       oilVariants: [],
       loading: true,
       error: null,
-      selectedTractorMake: '--Select--', // default tractor make
-      tractorModel: '', // tractor model input
-      tractorSpare: '', // spare input
-      includeOil: false, // whether user wants oil with spare
-      selectedOilVariant: null, // selected oil variant key
+      selectedTractorMake: '--Select--',
+      tractorModel: '',
+      tractorSpare: '',
+      includeOil: false,
+      selectedOilVariant: null,
+      pdfExists: true
     };
   },
   computed: {
-    // Compute the current oil variant object based on selectedOilVariant.
     currentOilVariant() {
       if (this.oilVariants.length === 0) return {};
-      return (
-        this.oilVariants.find(oil => oil.variant === this.selectedOilVariant) ||
-        this.oilVariants[0]
-      );
+      return this.oilVariants.find(oil => oil.variant === this.selectedOilVariant) || this.oilVariants[0];
     },
+    computedPdfUrl() {
+      const fileName = this.selectedTractorMake.replace(/\s+/g, '_').toLowerCase() + '.pdf';
+      return `/assets/catalogs/${fileName}`;
+    }
+  },
+  watch: {
+    selectedTractorMake(newVal) {
+      if (newVal !== '--Select--') {
+        this.checkFileExists(this.computedPdfUrl, 'pdfExists');
+      }
+    }
   },
   created() {
-    // Fetch oil variants immediately (they are optional, but available if user opts in)
     this.fetchOilVariants();
   },
   methods: {
     async fetchOilVariants() {
-      const productId = 108; // Oil is one of the spare parts
+      const productId = 108;
       try {
-        const response = await axios.get(
-          `${API_BASE_URL}/api/products/getvariants?productId=${productId}`
-        );
+        const response = await axios.get(`${API_BASE_URL}/api/products/getvariants?productId=${productId}`);
         this.oilVariants = response.data;
         if (this.oilVariants.length > 0) {
-          // Initialize with the first oil variant's "variant" attribute.
           this.selectedOilVariant = this.oilVariants[0].variant;
         }
       } catch (err) {
-        console.error('Error fetching oil variants:', err);
-        this.error =
-          (err.response && err.response.data) ||
-          err.message ||
-          'Failed to load oil variants.';
+        this.error = (err.response && err.response.data) || err.message || 'Failed to load oil variants.';
       } finally {
         this.loading = false;
       }
     },
+    checkFileExists(url, stateKey) {
+      fetch(url, { method: 'HEAD' })
+        .then(res => {
+          this[stateKey] = res.ok;
+        })
+        .catch(() => {
+          this[stateKey] = false;
+        });
+    },
     handleEnquiry() {
-      // Ensure the user selects either a spare part or opts for OIL
       if (!this.tractorSpare.trim() && !this.includeOil) {
         alert('Please select at least a Spare Part or include OIL.');
         return;
       }
-      
-      // Build description string conditionally:
-      // - If a spare is entered, include tractor, model and spare.
-      // - Always append oil info if OIL is chosen.
       let description = "";
       if (this.tractorSpare.trim() !== "") {
         description = `Make: ${this.selectedTractorMake}, Model: ${this.tractorModel}, Spare: ${this.tractorSpare}`;
@@ -169,21 +190,12 @@ export default {
           ? `${description}, OIL: ${this.currentOilVariant.variant}`
           : `OIL: ${this.currentOilVariant.variant}`;
       }
-      
-      // Determine variant name based on user input
       const spareChosen = this.tractorSpare.trim() !== "";
       const oilChosen = this.includeOil && this.oilVariants.length > 0;
       let variantName = "";
-      
-      if (spareChosen && oilChosen) {
-        variantName = "Spares and OIL";
-      } else if (spareChosen) {
-        variantName = "Spares";
-      } else if (oilChosen) {
-        variantName = "OIL";
-      }
-      
-      // Consolidate the selected details into a single object
+      if (spareChosen && oilChosen) variantName = "Spares and OIL";
+      else if (spareChosen) variantName = "Spares";
+      else if (oilChosen) variantName = "OIL";
       const selectedVariant = {
         id: this.currentOilVariant.id,
         name: variantName,
@@ -193,23 +205,16 @@ export default {
         details: description,
         isspare: true
       };
-      console.log('Selected Variant:', selectedVariant);
-      console.log('Selected Tractor Make:', this.selectedTractorMake);
-      
-      // Navigate to PlaceEnquiry route with the updated variant details
       this.$router.push({
         name: 'PlaceEnquiry',
-        params: { 
-          selectedVariant: JSON.stringify(selectedVariant)
-        }
+        params: { selectedVariant: JSON.stringify(selectedVariant) }
       });
     },
-  },
+  }
 };
 </script>
 
 <style scoped>
-/* Container and general layout */
 .detail-container {
   padding: 1.5rem;
   background: linear-gradient(135deg, #ffffff, #f7f7f7);
@@ -219,8 +224,6 @@ export default {
   border-radius: 12px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-/* Back icon */
 .back-icon {
   display: inline-flex;
   align-items: center;
@@ -230,24 +233,32 @@ export default {
   margin-bottom: 1.5rem;
   transition: color 0.3s ease;
 }
-
 .back-icon i {
   margin-right: 0.5rem;
 }
-
 .back-icon:hover {
   color: #2980b9;
 }
-
-/* Title */
-.product-title {
-  font-size: 2.4rem;
-  color: #2c3e50;
+.catchy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
   text-align: center;
-  margin-bottom: 2rem;
+  color: #2c3e50;
+  line-height: 1.5;
+  margin: 1rem auto;
+  max-width: 800px;
+  position: relative;
+  padding: 0.5rem 1rem;
 }
-
-/* Loading and error messages */
+.catchy::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #ea1452, #2980b9);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
 .loading,
 .error {
   font-size: 1.2rem;
@@ -255,42 +266,35 @@ export default {
   text-align: center;
   margin: 2rem 0;
 }
-
-/* Flex container for form and product info */
 .content-container {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
-
-/* Form container */
 .form-container {
   background: #fff;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   flex: 1;
   max-width: 500px;
-  justify-content: center;
-  border: 1x solid #ea1452;
+  border: 1px solid #ea1452;
 }
-
 .form-group {
   margin-bottom: 1.5rem;
   text-align: center;
 }
-
 .form-label {
   font-size: 1.1rem;
   color: #2c3e50;
   margin-bottom: 0.5rem;
   display: block;
 }
-
 .form-control {
   width: 100%;
-  max-width: 250px; /* Limits the width on larger screens */
+  max-width: 250px;
   padding: 0.6rem 0.1rem;
   font-size: 1rem;
   border: 1px solid #555;
@@ -298,13 +302,10 @@ export default {
   box-sizing: border-box;
   margin: 0 auto;
 }
-
 .form-control:focus {
   border-color: #ea1452;
   outline: none;
 }
-
-/* Oil Section Styles */
 .oil-section {
   background: #f1f8ff;
   border: 1px solid #a3c0e9;
@@ -313,13 +314,10 @@ export default {
   margin-top: 1rem;
   text-align: center;
 }
-
 .oil-section .form-label {
   font-weight: bold;
   color: #2980b9;
 }
-
-/* Product Info */
 .product-info {
   flex: 1;
   max-width: 500px;
@@ -329,33 +327,22 @@ export default {
   gap: 1rem;
   padding: 0.1rem;
 }
-
 .product-image {
   max-width: 300px;
   width: 100%;
   border-radius: 8px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
-
 .product-details {
   font-size: 1.1rem;
   color: #555;
   text-align: left;
   width: 100%;
 }
-
-.product-price {
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-/* Enquiry Button */
 .enquiry-section {
   text-align: center;
   margin-top: 1rem;
 }
-
 .enquiry-button {
   background-color: #ea1452;
   color: #fff;
@@ -367,40 +354,42 @@ export default {
   transition: background-color 0.3s ease;
   width: 100%;
 }
-
 .enquiry-button:hover {
   background-color: black;
 }
-p.catchy {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.2rem;
-  text-align: center;
-  color: #2c3e50;
-  line-height: 1.5;
-  margin: 1rem auto;
-  max-width: 800px;
-  position: relative;
-  padding: 0.5rem 1rem;
+.pdf-embed-section {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  border: 1px solid #ccc;
 }
-
-p.catchy::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #ea1452, #2980b9);
-  margin: 10px auto 0;
-  border-radius: 2px;
+.pdf-frame {
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  height: 500px;
 }
-
-
+.custom-download-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 1.4rem;
+  background-color: #ea1452;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.custom-download-btn:hover {
+  background-color: #000;
+}
+.fallback-message {
+  margin-top: 1rem;
+  color: #d35400;
+  font-weight: bold;
+}
 @media (max-width: 768px) {
-  .detail-container {
-    padding: 0.5rem;
-  }
-  .product-title {
-    font-size: 1.0rem;
-  }
   .content-container {
     flex-direction: column;
     align-items: center;
@@ -414,3 +403,4 @@ p.catchy::after {
   }
 }
 </style>
+
