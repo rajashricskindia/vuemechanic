@@ -139,7 +139,7 @@ export default {
     },
     computedPdfUrl() {
       const fileName = this.selectedTractorMake.replace(/\s+/g, '_').toLowerCase() + '.pdf';
-      return `/assets/catalogs/${fileName}`;
+      return `./assets/catalogs/${fileName}`;
     }
   },
   watch: {
