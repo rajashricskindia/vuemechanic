@@ -138,7 +138,7 @@ export default {
       return this.oilVariants.find(oil => oil.variant === this.selectedOilVariant) || this.oilVariants[0];
     },
     computedPdfUrl() {
-      const fileName = this.selectedTractorMake.replace(/\s+/g, '_').toLowerCase() + '.pdf';
+      const fileName = this.selectedTractorMake.replace(/\s+/g, '_') + '.pdf';
       return `./assets/catalogs/${fileName}`;
     }
   },
